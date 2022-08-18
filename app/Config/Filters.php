@@ -70,12 +70,13 @@ class Filters extends BaseConfig
      *
      * @var array
      */
+    // OTENTIKASI JWT DISINI
     public $filters = [
-        'otentikasi' => [
-            'before' => [
-                'sma/*',
-                'sma'
-            ]
-        ]
+        // 'otentikasi' => [
+        //     'before' => [
+        //         'sma/*',
+        //         'sma'
+        //     ]
+        // ]
     ];
 }

@@ -4,15 +4,15 @@ namespace App\Controllers;
 
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\RESTful\ResourceController;
-use App\Models\SmaModel;
+use App\Models\KelurahanModel;
 
-class Sma extends ResourceController
+class Kelurahan extends ResourceController
 {
     use ResponseTrait;
 
     function __construct()
     {
-        $this->model = new SmaModel();
+        $this->model = new KelurahanModel();
     }
 
     private $limit = 20;
@@ -34,7 +34,7 @@ class Sma extends ResourceController
         $page = (int)$page;
         $countData = $this->model->countAll();
         $pageCount = $this->getPageCount($countData);
-        $datas = $this->model->orderBy('nama_sma', 'ASC')->findAll($this->limit, $this->getOffSet($page));
+        $datas = $this->model->orderBy('nama_kelurahan', 'ASC')->findAll($this->limit, $this->getOffSet($page));
         $data =
             [
                 'page'          => $page,
@@ -50,7 +50,7 @@ class Sma extends ResourceController
 
     public function show($id = null)
     {
-        $datas = $this->model->where('id_sma', $id)->findAll();
+        $datas = $this->model->where('id_kelurahan', $id)->findAll();
         if ($datas) {
             return $this->respond($datas, 200);
         } else {
@@ -78,7 +78,7 @@ class Sma extends ResourceController
             'status'            => 201,
             'eror'              => null,
             'messages'          => [
-                'succes' => 'Berhasil Menambah Data SMA'
+                'succes' => 'Berhasil Menambah Data Kelurahan'
             ]
         ];
         return $this->respond($response);
@@ -87,7 +87,7 @@ class Sma extends ResourceController
     public function update($id = null)
     {
         $data = $this->request->getRawInput();
-        $isExists = $this->model->where('id_sma', $id)->findAll();
+        $isExists = $this->model->where('id_kelurahan', $id)->findAll();
         if (!$isExists) {
             return $this->failNotFound("Data tidak di temukan untuk id $id");
         }
@@ -101,7 +101,7 @@ class Sma extends ResourceController
             'status'        => 200,
             'eroor'         => null,
             'messages'          => [
-                'succes' => 'Berhasil Update Data SMA'
+                'succes' => 'Berhasil Update Data Kelurahan'
             ]
         ];
         return $this->respond($response);
@@ -109,14 +109,14 @@ class Sma extends ResourceController
 
     public function delete($id = null)
     {
-        $data = $this->model->where('id_sma', $id)->findAll();
+        $data = $this->model->where('id_kelurahan', $id)->findAll();
         if ($data) {
             $this->model->delete($id);
             $response = [
                 'status'        => 200,
                 'eroor'         => null,
                 'messages'          => [
-                    'succes' => 'Berhasil Hapus Data SMA'
+                    'succes' => 'Berhasil Hapus Data Kelurahan'
                 ]
             ];
             return $this->respondDeleted($response);
