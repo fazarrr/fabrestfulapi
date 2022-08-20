@@ -39,10 +39,14 @@ $routes->setAutoRoute(true);
 
 // $routes->get('/', 'Home::index');
 
-// $routes->resource('sma');
-// $routes->resource('smk');
-// $routes->resource('kelurahan');
-// $routes->resource('kecamatan');
+$routes->resource('sma', ['only' => ['index']]);
+$routes->resource('sma/', ['only' => ['getAllData', 'show', 'create']]);
+$routes->resource('smk', ['only' => ['index']]);
+$routes->resource('smk/', ['only' => ['getAllData', 'show', 'create']]);
+$routes->resource('kelurahan', ['only' => ['index']]);
+$routes->resource('kelurahan/', ['only' => ['getAllData', 'show', 'create']]);
+$routes->resource('kecamatan', ['only' => ['index']]);
+$routes->resource('kecamatan/', ['only' => ['getAllData', 'show', 'create']]);
 
 /*
  * --------------------------------------------------------------------

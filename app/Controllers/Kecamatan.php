@@ -34,7 +34,16 @@ class Kecamatan extends ResourceController
         $page = (int)$page;
         $countData = $this->model->countAll();
         $pageCount = $this->getPageCount($countData);
-        $datas = $this->model->orderBy('nama_kecamatan', 'ASC')->findAll($this->limit, $this->getOffSet($page));
+        $datas = $this->model
+            ->select('kode_kecamatan, nama_kecamatan')
+            ->orderBy('nama_kecamatan', 'ASC')
+            ->findAll(
+                $this->limit,
+                $this->getOffSet($page)
+            );
+        if ($page > $pageCount) {
+            return $this->failNotFound();
+        }
         $data =
             [
                 'page'          => $page,
@@ -84,44 +93,47 @@ class Kecamatan extends ResourceController
         return $this->respond($response);
     }
 
-    public function update($id = null)
-    {
-        $data = $this->request->getRawInput();
-        $isExists = $this->model->where('id_kecamatan', $id)->findAll();
-        if (!$isExists) {
-            return $this->failNotFound("Data tidak di temukan untuk id $id");
-        }
+    // START UPDATE
+    // public function update($id = null)
+    // {
+    //     $data = $this->request->getRawInput();
+    //     $isExists = $this->model->where('id_kecamatan', $id)->findAll();
+    //     if (!$isExists) {
+    //         return $this->failNotFound("Data tidak di temukan untuk id $id");
+    //     }
 
-        // Kalau ada eror pada saat update
-        if (!$this->model->save($data)) {
-            return $this->fail($this->model->errors());
-        }
+    // Kalau ada eror pada saat update
+    //     if (!$this->model->save($data)) {
+    //         return $this->fail($this->model->errors());
+    //     }
 
-        $response = [
-            'status'        => 200,
-            'eroor'         => null,
-            'messages'          => [
-                'succes' => 'Berhasil Update Data Kecamatan'
-            ]
-        ];
-        return $this->respond($response);
-    }
+    //     $response = [
+    //         'status'        => 200,
+    //         'eroor'         => null,
+    //         'messages'          => [
+    //             'succes' => 'Berhasil Update Data Kecamatan'
+    //         ]
+    //     ];
+    //     return $this->respond($response);
+    // }
+    // END UPDATE
 
-    public function delete($id = null)
-    {
-        $data = $this->model->where('id_kecamatan', $id)->findAll();
-        if ($data) {
-            $this->model->delete($id);
-            $response = [
-                'status'        => 200,
-                'eroor'         => null,
-                'messages'          => [
-                    'succes' => 'Berhasil Hapus Data Kecamatan'
-                ]
-            ];
-            return $this->respondDeleted($response);
-        } else {
-            return $this->failNotFound('Data tidak di temukan');
-        }
-    }
+
+    // public function delete($id = null)
+    // {
+    //     $data = $this->model->where('id_kecamatan', $id)->findAll();
+    //     if ($data) {
+    //         $this->model->delete($id);
+    //         $response = [
+    //             'status'        => 200,
+    //             'eroor'         => null,
+    //             'messages'          => [
+    //                 'succes' => 'Berhasil Hapus Data Kecamatan'
+    //             ]
+    //         ];
+    //         return $this->respondDeleted($response);
+    //     } else {
+    //         return $this->failNotFound('Data tidak di temukan');
+    //     }
+    // }
 }

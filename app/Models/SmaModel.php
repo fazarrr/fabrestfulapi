@@ -13,13 +13,12 @@ class SmaModel extends Model
         "nama_sma", "alamat_sma", "status_sma",
         "created_at"
     ];
-    // protected $returnType = 'App\Entities\Sma';
 
     // Validation Rules CREATE
     protected $validationRules = [
         "id_kecamatan"      => 'required',
         "id_kelurahan"      => 'required',
-        "nama_sma"          => 'required',
+        "nama_sma"          => 'required|is_unique[sma.nama_sma]',
         "alamat_sma"        => 'required',
         "status_sma"        => 'required',
     ];
@@ -33,7 +32,8 @@ class SmaModel extends Model
             'required'   => 'Silahkan masukan ID KELURAHAN'
         ],
         "nama_sma"          => [
-            'required'   => 'Silahkan masukan NAMA SMA'
+            'required'   => 'Silahkan masukan NAMA SMA',
+            'is_unique'   => 'Nama SMA sudah ada'
         ],
         "alamat_sma"        => [
             'required'   => 'Silahkan masukan ALAMAT SMA'

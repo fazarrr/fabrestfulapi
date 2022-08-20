@@ -19,7 +19,7 @@ class SmkModel extends Model
     protected $validationRules = [
         "id_kecamatan"      => 'required',
         "id_kelurahan"      => 'required',
-        "nama_smk"          => 'required',
+        "nama_smk"          => 'required|is_unique[smk.nama_smk]',
         "alamat_smk"        => 'required',
         "status_smk"        => 'required',
     ];
@@ -27,19 +27,20 @@ class SmkModel extends Model
     // Validation Message CREATE
     protected $validationMessages = [
         "id_kecamatan"      => [
-            'required'   => 'Silahkan masukan ID KECAMATAN'
+            'required'      => 'Silahkan masukan ID KECAMATAN'
         ],
         "id_kelurahan"      => [
-            'required'   => 'Silahkan masukan ID KELURAHAN'
+            'required'      => 'Silahkan masukan ID KELURAHAN'
         ],
         "nama_smk"          => [
-            'required'   => 'Silahkan masukan NAMA SMK'
+            'required'      => 'Silahkan masukan NAMA SMK',
+            'is_unique'     => 'Nama SMK sudah ada'
         ],
         "alamat_smk"        => [
-            'required'   => 'Silahkan masukan ALAMAT SMK'
+            'required'      => 'Silahkan masukan ALAMAT SMK'
         ],
         "status_smk"        => [
-            'required'   => 'Silahkan masukan STATUS SMK'
+            'required'      => 'Silahkan masukan STATUS SMK'
         ],
     ];
 }

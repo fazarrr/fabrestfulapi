@@ -34,7 +34,16 @@ class Kelurahan extends ResourceController
         $page = (int)$page;
         $countData = $this->model->countAll();
         $pageCount = $this->getPageCount($countData);
-        $datas = $this->model->orderBy('nama_kelurahan', 'ASC')->findAll($this->limit, $this->getOffSet($page));
+        $datas = $this->model
+            ->select('kode_kelurahan, nama_kelurahan')
+            ->orderBy('nama_kelurahan', 'ASC')
+            ->findAll(
+                $this->limit,
+                $this->getOffSet($page)
+            );
+        if ($page > $pageCount) {
+            return $this->failNotFound();
+        }
         $data =
             [
                 'page'          => $page,

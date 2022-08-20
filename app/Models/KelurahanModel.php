@@ -16,17 +16,19 @@ class KelurahanModel extends Model
 
     // Validation Rules CREATE
     protected $validationRules = [
-        "kode_kelurahan"      => 'required',
-        "nama_kelurahan"          => 'required',
+        "kode_kelurahan"      => 'required|is_unique[kelurahan.kode_kelurahan]',
+        "nama_kelurahan"          => 'required|is_unique[kelurahan.nama_kelurahan]',
     ];
 
     // Validation Message CREATE
     protected $validationMessages = [
         "kode_kelurahan"      => [
-            'required'   => 'Silahkan masukan KODE KELURAHAN'
+            'required'   => 'Silahkan masukan KODE KELURAHAN',
+            'is_unique' => 'KODE KELURAHAN sudah ada'
         ],
         "nama_kelurahan"          => [
-            'required'   => 'Silahkan masukan NAMA KELURAHAN'
+            'required'   => 'Silahkan masukan NAMA KELURAHAN',
+            'is_unique' => 'NAMA KELURAHAN sudah ada'
         ],
     ];
 }
