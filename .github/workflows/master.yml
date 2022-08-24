@@ -18,3 +18,18 @@ jobs:
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
           server-dir: /htdocs/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.env*
+            **/.gitignore*
+            **/.htaccess*
+            **/builds.file*
+            **/composer.json*
+            **/composer.lock*
+            **/env.file*
+            **/LICENSE.file*
+            **/phpunit.xml.dist*
+            **/preload.php*
+            **/README.md*
+            **/spark.file*

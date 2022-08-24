@@ -32,10 +32,10 @@ class Database extends Config
      */
     public $default = [
         'DSN'      => '',
-        'hostname' => 'localhost',
-        'username' => 'root',
-        'password' => '',
-        'database' => 'sekolah_bekasi',
+        'hostname' => 'sql100.ezyro.com',
+        'username' => 'ezyro_32426660',
+        'password' => '18m8rru6cyx',
+        'database' => 'ezyro_32426660_sekolah_bekasi',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
