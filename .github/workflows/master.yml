@@ -1,5 +1,5 @@
 on:
-  pull_request:
+  push:
     branches:
       - "master"
 name: 🚀 Deploy website on MERGE
@@ -17,4 +17,20 @@ jobs:
           server: ${{ secrets.ftp_hostname }}
           username: ${{ secrets.ftp_username }}
           password: ${{ secrets.ftp_password }}
-          server-dir: ${{ secrets.ftp_hostname }}/htdocs/
+          server-dir: /htdocs/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/tests*/**
+            **/.env*
+            **/.gitignore*
+            **/.htaccess*
+            **/builds.file*
+            **/composer.json*
+            **/composer.lock*
+            **/env.file*
+            **/LICENSE.file*
+            **/phpunit.xml.dist*
+            **/preload.php*
+            **/README.md*
+            **/spark.file*
