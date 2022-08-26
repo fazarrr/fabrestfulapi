@@ -5,7 +5,9 @@ use App\Models\TokenModel;
 function akses_restapi($method, $url, $data)
 {
     $client = \Config\Services::curlrequest();
-    $token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNGJjMDc5MjQxNGFhZTdiMDc3MTA1Mjk0YzE5ZDk1NSIsInN1YiI6IjYyZDJjMWRhZGQ3MzFiMDA0YzM2NTg3NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UA6l6zAKwBLlXSfApd3U4-Xv0F4NUjowoIF0YUR9SXE";
+    // $token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNGJjMDc5MjQxNGFhZTdiMDc3MTA1Mjk0YzE5ZDk1NSIsInN1YiI6IjYyZDJjMWRhZGQ3MzFiMDA0YzM2NTg3NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UA6l6zAKwBLlXSfApd3U4-Xv0F4NUjowoIF0YUR9SXE";
+    $apiKey = 'c05b1c45e5f54f80a5362b4e0d12f406';
+    $category = 'business';
 
     //    UPDATE TOKEN JIKA EXP
     //     $model = new TokenModel();
@@ -40,8 +42,12 @@ function akses_restapi($method, $url, $data)
     //         $model->save($dataToken);
     //     }
 
+    // $headers = [
+    //     'Authorization' => 'Bearer ' . $token
+    // ];
+
     $headers = [
-        'Authorization' => 'Bearer ' . $token
+        'Authorization' => $apiKey,
     ];
 
     $response = $client->request(
