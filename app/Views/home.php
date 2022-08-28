@@ -274,7 +274,7 @@
 
         <p>Base Url</p>
 
-        <pre><code>http://fazar.ezyro.com/</code></pre>
+        <pre><code>http://fazar.ezyro.com/v1/</code></pre>
 
         <p>Untuk test dengan postman, di header tambahkan key "Cookie" (tanpa tanda petik) dengan value</p>
 

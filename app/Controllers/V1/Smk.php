@@ -1,18 +1,36 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\V1;
 
+use App\Models\KecamatanModel;
+use App\Models\KelurahanModel;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\RESTful\ResourceController;
-use App\Models\KecamatanModel;
+use App\Models\SmkModel;
 
-class Kecamatan extends ResourceController
+class Smk extends ResourceController
 {
     use ResponseTrait;
 
+    function index()
+    {
+        $m_kecamatan = new KecamatanModel();
+        $m_kelurahan = new KelurahanModel();
+
+        $kecamatan = $m_kecamatan->select('id_kecamatan, nama_kecamatan')->orderBy('nama_kecamatan', 'ASC')->findAll();
+        $kelurahan = $m_kelurahan->select('id_kelurahan, nama_kelurahan')->orderBy('nama_kelurahan', 'ASC')->findAll();
+        $data =
+            [
+                'kecamatan' => $kecamatan,
+                'kelurahan' => $kelurahan
+            ];
+
+        return $this->respond($data, 200);
+    }
+
     function __construct()
     {
-        $this->model = new KecamatanModel();
+        $this->model = new SmkModel();
     }
 
     private $limit = 20;
@@ -35,8 +53,11 @@ class Kecamatan extends ResourceController
         $countData = $this->model->countAll();
         $pageCount = $this->getPageCount($countData);
         $datas = $this->model
-            ->select('kode_kecamatan, nama_kecamatan')
-            ->orderBy('nama_kecamatan', 'ASC')
+            ->select('nama_kecamatan, nama_kelurahan, nama_smk,
+                    alamat_smk, status_smk')
+            ->join('kecamatan', 'kecamatan.id_kecamatan = smk.id_kecamatan')
+            ->join('kelurahan', 'kelurahan.id_kelurahan = smk.id_kelurahan')
+            ->orderBy('nama_smk', 'ASC')
             ->findAll(
                 $this->limit,
                 $this->getOffSet($page)
@@ -59,7 +80,7 @@ class Kecamatan extends ResourceController
 
     public function show($id = null)
     {
-        $datas = $this->model->where('id_kecamatan', $id)->findAll();
+        $datas = $this->model->where('id_smk', $id)->findAll();
         if ($datas) {
             return $this->respond($datas, 200);
         } else {
@@ -87,7 +108,7 @@ class Kecamatan extends ResourceController
             'status'            => 201,
             'eror'              => null,
             'messages'          => [
-                'succes' => 'Berhasil Menambah Data Kecamatan'
+                'succes' => 'Berhasil Menambah Data SMK'
             ]
         ];
         return $this->respond($response);
@@ -97,7 +118,7 @@ class Kecamatan extends ResourceController
     // public function update($id = null)
     // {
     //     $data = $this->request->getRawInput();
-    //     $isExists = $this->model->where('id_kecamatan', $id)->findAll();
+    //     $isExists = $this->model->where('id_smk', $id)->findAll();
     //     if (!$isExists) {
     //         return $this->failNotFound("Data tidak di temukan untuk id $id");
     //     }
@@ -111,24 +132,23 @@ class Kecamatan extends ResourceController
     //         'status'        => 200,
     //         'eroor'         => null,
     //         'messages'          => [
-    //             'succes' => 'Berhasil Update Data Kecamatan'
+    //             'succes' => 'Berhasil Update Data SMK'
     //         ]
     //     ];
     //     return $this->respond($response);
     // }
     // END UPDATE
 
-
     // public function delete($id = null)
     // {
-    //     $data = $this->model->where('id_kecamatan', $id)->findAll();
+    //     $data = $this->model->where('id_smk', $id)->findAll();
     //     if ($data) {
     //         $this->model->delete($id);
     //         $response = [
     //             'status'        => 200,
     //             'eroor'         => null,
     //             'messages'          => [
-    //                 'succes' => 'Berhasil Hapus Data Kecamatan'
+    //                 'succes' => 'Berhasil Hapus Data SMK'
     //             ]
     //         ];
     //         return $this->respondDeleted($response);

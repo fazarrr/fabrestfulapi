@@ -21,7 +21,9 @@ $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
-$routes->setAutoRoute(true);
+
+// $routes->setAutoRoute(true);
+
 // The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
 // where controller filters or CSRF protection are bypassed.
 // If you don't want to define all routes, please use the Auto Routing (Improved).
@@ -39,14 +41,21 @@ $routes->setAutoRoute(true);
 
 // $routes->get('/', 'Home::index');
 
-$routes->resource('sma', ['only' => ['index']]);
-$routes->resource('sma/', ['only' => ['getAllData', 'show', 'create']]);
-$routes->resource('smk', ['only' => ['index']]);
-$routes->resource('smk/', ['only' => ['getAllData', 'show', 'create']]);
-$routes->resource('kelurahan', ['only' => ['index']]);
-$routes->resource('kelurahan/', ['only' => ['getAllData', 'show', 'create']]);
-$routes->resource('kecamatan', ['only' => ['index']]);
-$routes->resource('kecamatan/', ['only' => ['getAllData', 'show', 'create']]);
+$routes->get('v1', 'V1\Home::index');
+$routes->get('v1/otentikasi', 'V1\Otentikasi::index');
+$routes->get('v1/sma/getalldata', 'V1\Sma::getAllData');
+$routes->get('v1/sma/getalldata/(:num)', 'V1\Sma::getAllData/$1');
+$routes->get('v1/smk/getalldata', 'V1\Smk::getAllData');
+$routes->get('v1/smk/getalldata/(:num)', 'V1\Smk::getAllData/$1');
+$routes->get('v1/kelurahan/getalldata', 'V1\Kelurahan::getAllData');
+$routes->get('v1/kelurahan/getalldata/(:num)', 'V1\Kelurahan::getAllData/$1');
+$routes->get('v1/kecamatan/getalldata', 'V1\Kecamatan::getAllData');
+$routes->get('v1/kecamatan/getalldata/(:num)', 'V1\Kecamatan::getAllData/$1');
+
+$routes->resource('v1/sma', ['only' => ['index', 'show', 'create']]);
+$routes->resource('v1/smk', ['only' => ['index', 'show', 'create']]);
+$routes->resource('v1/kelurahan', ['only' => ['index', 'show', 'create']]);
+$routes->resource('v1/kecamatan', ['only' => ['index', 'show', 'create']]);
 
 /*
  * --------------------------------------------------------------------
