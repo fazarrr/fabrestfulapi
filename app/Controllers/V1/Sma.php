@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers;
+namespace App\Controllers\V1;
 
 use App\Models\KecamatanModel;
 use App\Models\KelurahanModel;

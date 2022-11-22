@@ -40,17 +40,18 @@ class RestClient extends BaseController
         // echo $response->getBody();
 
         helper(['restclient']);
-        $url = "https://api.themoviedb.org/3/movie/popular";
+        $url = "https://newsapi.org/v2/top-headlines";
 
         // method (GET,  POST, PUT, DELET)
         // data [] bisa di ganti dengan $data (di atas url tambahkan variable data)
         $response = akses_restapi('GET', $url, []);
 
         $dataArray = json_decode($response, true);
-        $result = $dataArray['results'];
-        foreach ($result as $values) {
-            echo "Judul : " . $values['original_title'] . "<br/>";
-            echo "Overview : " . $values['overview'] . "<br/><br/>";
-        }
+        // $result = $dataArray['results'];
+        // foreach ($result as $values) {
+        //     echo "Judul : " . $values['original_title'] . "<br/>";
+        //     echo "Overview : " . $values['overview'] . "<br/><br/>";
+        // }
+        dd($dataArray);
     }
 }
